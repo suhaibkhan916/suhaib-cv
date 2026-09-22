@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+
+  --bg: #060a14;
+  --bg-elevated: #0c1220;
+  --surface: #101828;
+  --surface-hover: #151f33;
+  --border: #1e293b;
+  --border-strong: #2a3a52;
+
+  --text: #e2e8f0;
+  --text-muted: #8b98ac;
+  --text-faint: #57667c;
+
+  --accent: #22d3ee;
+  --accent-soft: rgba(34, 211, 238, 0.12);
+  --accent-strong: #67e8f9;
+  --accent-2: #a78bfa;
+  --accent-2-soft: rgba(167, 139, 250, 0.14);
+
+  --glow: 0 0 0 1px var(--border), 0 20px 40px -20px rgba(34, 211, 238, 0.25);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f7f9fc;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #eef2f8;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-faint: #94a3b8;
+
+  --accent: #0891b2;
+  --accent-soft: rgba(8, 145, 178, 0.08);
+  --accent-strong: #0e7490;
+  --accent-2: #7c3aed;
+  --accent-2-soft: rgba(124, 58, 237, 0.08);
+
+  --glow: 0 0 0 1px var(--border), 0 20px 40px -20px rgba(8, 145, 178, 0.15);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+/* subtle scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  .print-section {
+    break-inside: avoid;
+  }
+}
