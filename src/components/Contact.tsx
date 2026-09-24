@@ -13,7 +13,7 @@ export function Contact() {
       setCopied(true)
       setTimeout(() => setCopied(false), 1800)
     } catch {
-      // clipboard unavailable — no-op
+      // clipboard not available
     }
   }
 
@@ -38,8 +38,8 @@ export function Contact() {
             Let&rsquo;s build something.
           </h2>
           <p className="mt-3 max-w-lg text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-            Open to Software Engineer and cyber security roles across the UK and EU. The fastest way to reach me is email — happy to talk
-            through anything from backend architecture and cloud data pipelines to automation and security.
+            Open to Software Engineer and cyber security roles across the UK and EU. The quickest way to reach me is email. Happy to talk
+            backend work, cloud data pipelines, automation or security.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
