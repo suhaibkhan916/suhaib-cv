@@ -48,8 +48,8 @@ const svg = `
 
   <rect x="0" y="0" width="${W}" height="6" fill="url(#accentLine)" />
 
-  <circle cx="1000" cy="175" r="88" fill="#101828" stroke="#22d3ee" stroke-width="3" />
-  <text x="1000" y="196" font-family="Space Grotesk, Arial, sans-serif" font-size="52" font-weight="700" fill="#22d3ee" text-anchor="middle">MS</text>
+  <circle cx="990" cy="230" r="130" fill="#101828" />
+  <circle cx="990" cy="230" r="130" fill="none" stroke="#22d3ee" stroke-width="3" />
 
   <rect x="90" y="120" width="470" height="40" rx="20" fill="none" stroke="#1e293b" stroke-width="1.5" />
   <circle cx="115" cy="140" r="5" fill="#22d3ee" />
@@ -66,6 +66,18 @@ const svg = `
 
 mkdirSync(dirname(outPath), { recursive: true })
 
-await sharp(Buffer.from(svg)).png().toFile(outPath)
+const base = await sharp(Buffer.from(svg)).png().toBuffer()
+const D = 256
+const mask = Buffer.from(`<svg width="${D}" height="${D}"><circle cx="${D / 2}" cy="${D / 2}" r="${D / 2}" fill="#fff"/></svg>`)
+const portrait = await sharp(join(__dirname, '..', 'public', 'profile.webp'))
+  .resize(D, D)
+  .composite([{ input: mask, blend: 'dest-in' }])
+  .png()
+  .toBuffer()
+
+await sharp(base)
+  .composite([{ input: portrait, left: 990 - D / 2, top: 230 - D / 2 }])
+  .png()
+  .toFile(outPath)
 
 console.log('Wrote', outPath)

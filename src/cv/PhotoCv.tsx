@@ -11,7 +11,8 @@ const s = StyleSheet.create({
   page: { paddingTop: 30, paddingBottom: 30, paddingLeft: SIDE + 26, paddingRight: 28, fontFamily: 'Helvetica', fontSize: 9, color: '#1e293b', lineHeight: 1.35 },
   sideBg: { position: 'absolute', left: 0, top: 0, bottom: 0, width: SIDE, backgroundColor: NAVY },
   side: { position: 'absolute', left: 0, top: 0, width: SIDE, paddingTop: 30, paddingHorizontal: 18, color: '#e2e8f0' },
-  photo: { width: 92, height: 92, borderRadius: 46, alignSelf: 'center', marginBottom: 10 },
+  photoRing: { width: 96, height: 96, borderRadius: 48, alignSelf: 'center', marginBottom: 10, borderWidth: 2, borderColor: SOFT, overflow: 'hidden' },
+  photoImg: { width: 92, height: 92, objectFit: 'cover' },
   initials: { width: 92, height: 92, borderRadius: 46, alignSelf: 'center', marginBottom: 10, borderWidth: 2, borderColor: SOFT, justifyContent: 'center', alignItems: 'center' },
   initialsText: { fontFamily: 'Helvetica-Bold', fontSize: 30, color: SOFT },
   name: { fontFamily: 'Helvetica-Bold', fontSize: 17, lineHeight: 1.2, color: '#fff', textAlign: 'center' },
@@ -39,7 +40,9 @@ export function PhotoCv({ photo }: { photo?: string }) {
 
         <View style={s.side}>
           {photo ? (
-            <Image src={photo} style={s.photo} />
+            <View style={s.photoRing}>
+              <Image src={photo} style={s.photoImg} />
+            </View>
           ) : (
             <View style={s.initials}>
               <Text style={s.initialsText}>{profile.initials}</Text>

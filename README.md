@@ -32,7 +32,7 @@ Outputs a static site to `dist/` — deployable to Vercel, Netlify, or any stati
 
 ## To do before going live
 
-- [ ] Swap the initials avatar in `Hero.tsx` for a real photo (drop the image in `src/assets/` and update the component).
+- [ ] Portrait lives at `public/profile.webp` (transparent cut-out, framed for the circular avatar).
 - [ ] Replace `public/favicon.svg` with a custom favicon.
 - [ ] Point `muhammadsuhaib.com` DNS at the chosen host once deployed.
 

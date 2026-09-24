@@ -92,7 +92,8 @@ function Avatar() {
         style={{
           borderColor: 'var(--accent)',
           color: 'var(--accent)',
-          background: 'var(--surface)',
+          background:
+            'radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--accent) 16%, var(--surface)) 0%, var(--surface) 72%)',
           boxShadow: 'var(--glow)',
         }}
       >
@@ -102,7 +103,7 @@ function Avatar() {
           alt={`${profile.name}, Software Engineer`}
           onLoad={() => setHasPhoto(true)}
           onError={() => setHasPhoto(false)}
-          className={`absolute inset-0 h-full w-full object-cover ${hasPhoto ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-500 ${hasPhoto ? 'opacity-100' : 'opacity-0'}`}
         />
       </div>
     </div>
