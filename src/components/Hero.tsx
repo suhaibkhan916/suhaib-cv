@@ -1,10 +1,10 @@
-import { animate } from 'animejs'
 import gsap from 'gsap'
 import { motion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { FiArrowDown, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { profile } from '../data/resume'
 import { Magnetic } from './Magnetic'
+import { OrbitSystem } from './OrbitSystem'
 import { TypeRotator } from './TypeRotator'
 
 const rotatingWords = [
@@ -59,18 +59,8 @@ function AnimatedName({ name }: { name: string }) {
 }
 
 function Avatar() {
-  const ringRef = useRef<SVGSVGElement>(null)
   const tiltRef = useRef<HTMLDivElement>(null)
   const [hasPhoto, setHasPhoto] = useState(false)
-
-  useEffect(() => {
-    const el = ringRef.current
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const spin = animate(el, { rotate: 360, duration: 26000, ease: 'linear', loop: true })
-    return () => {
-      spin.revert()
-    }
-  }, [])
 
   useEffect(() => {
     const el = tiltRef.current
@@ -96,26 +86,7 @@ function Avatar() {
         className="absolute inset-0 -z-10 animate-pulse rounded-full blur-2xl"
         style={{ background: 'var(--accent-soft)' }}
       />
-      <svg
-        ref={ringRef}
-        viewBox="0 0 100 100"
-        className="pointer-events-none absolute -inset-4 h-[calc(100%+32px)] w-[calc(100%+32px)]"
-        style={{ transformOrigin: 'center' }}
-        aria-hidden="true"
-      >
-        <circle
-          cx="50"
-          cy="50"
-          r="48.5"
-          fill="none"
-          stroke="var(--accent)"
-          strokeWidth="0.5"
-          strokeDasharray="1.5 3.5"
-          opacity="0.7"
-        />
-        <circle cx="50" cy="1.5" r="1.7" fill="var(--accent-2)" />
-        <circle cx="98.5" cy="50" r="1" fill="var(--accent)" />
-      </svg>
+      <OrbitSystem />
       <div
         className="relative grid h-full w-full place-items-center overflow-hidden rounded-full border-2 font-[var(--font-display)] text-3xl font-bold sm:text-5xl"
         style={{
@@ -260,6 +231,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1, ease }}
+            className="self-center py-10 md:self-auto md:py-0 md:pr-10"
           >
             <Avatar />
           </motion.div>
