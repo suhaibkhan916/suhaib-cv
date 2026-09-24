@@ -17,6 +17,7 @@ import {
   FiUser,
 } from 'react-icons/fi'
 import { profile } from '../data/resume'
+import { cvOptions, downloadCv } from '../cv/generate'
 import { toggleTheme } from '../hooks/useTheme'
 
 interface Command {
@@ -55,7 +56,13 @@ export function CommandPalette() {
       { id: 'education', label: 'Education & Certifications', hint: 'Navigate', icon: FiAward, run: () => goTo('education') },
       { id: 'contact', label: 'Contact', hint: 'Navigate', icon: FiMail, run: () => goTo('contact') },
       { id: 'theme', label: 'Toggle dark / light theme', hint: 'Action', icon: FiMoon, run: () => toggleTheme() },
-      { id: 'pdf', label: 'Download CV as PDF', hint: 'Action', icon: FiDownload, run: () => window.print() },
+      ...cvOptions.map((o) => ({
+        id: `cv-${o.id}`,
+        label: `Download CV: ${o.label}`,
+        hint: 'PDF',
+        icon: FiDownload,
+        run: () => void downloadCv(o.id),
+      })),
       {
         id: 'copy',
         label: `Copy email (${profile.email})`,

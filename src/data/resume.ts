@@ -277,3 +277,30 @@ export const education: EducationEntry[] = [
     year: '2020',
   },
 ]
+
+export const cvHighlights: { lead: string; text: string }[] = [
+  {
+    lead: 'Cloud Data Pipelines',
+    text: 'Fed a Power BI reporting dataset with an Azure Data Factory ETL pipeline, partnering with the Power BI team to validate the data model and review dashboards for accuracy.',
+  },
+  {
+    lead: 'Infrastructure Automation',
+    text: 'Built Terraform configuration to provision Azure and Google Cloud virtual machines and databases, and a Jenkins CI/CD pipeline with supporting automation scripts.',
+  },
+  {
+    lead: 'Replacing Manual Work',
+    text: 'Designed and deployed a daily scheduled Python and Django Kubernetes CronJob that replaced a manual daily reporting process.',
+  },
+  {
+    lead: 'Media Storage and Delivery',
+    text: 'Delivered the media storage and delivery pipeline for a video and social media application on Azure Blob Storage and Azure CDN, with the integrated REST APIs documented in Swagger/OpenAPI.',
+  },
+  {
+    lead: 'Service Desk Operations',
+    text: 'Handled 30+ helpdesk tickets a day for UK automotive dealers, communicating with dealers, internal stakeholders and C-suite contacts, and producing operational data reporting.',
+  },
+  {
+    lead: 'Cyber Security',
+    text: 'MSc Cyber Security (Distinction), CompTIA Security+, TryHackMe SAL1 and hands-on lab practice, plus a peer-reviewed publication on AES encryption under quantum computing techniques.',
+  },
+]
