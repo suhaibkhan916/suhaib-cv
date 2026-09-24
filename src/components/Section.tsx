@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import type { PropsWithChildren, ReactNode } from 'react'
+import { ScrambleText } from './ScrambleText'
 
 interface SectionProps extends PropsWithChildren {
   id: string
@@ -31,7 +32,7 @@ export function Section({ id, index, title, subtitle, className = '', children }
               className="font-[var(--font-display)] text-2xl font-semibold tracking-tight sm:text-3xl"
               style={{ color: 'var(--text)' }}
             >
-              {title}
+              <ScrambleText text={title} />
             </h2>
             <span className="h-px flex-1" style={{ background: 'var(--border)' }} />
           </div>

@@ -23,7 +23,7 @@ export function Education() {
                 viewport={{ once: true, margin: '-40px' }}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="rounded-2xl border p-5 transition-colors hover:border-[var(--accent)]"
+                className="spotlight rounded-2xl border p-5"
                 style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -63,7 +63,7 @@ export function Education() {
                 viewport={{ once: true, margin: '-40px' }}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="rounded-2xl border p-5 transition-colors hover:border-[var(--accent)]"
+                className="spotlight rounded-2xl border p-5"
                 style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
               >
                 <div className="flex items-start justify-between gap-3">

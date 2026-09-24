@@ -60,6 +60,7 @@ function AnimatedName({ name }: { name: string }) {
 
 function Avatar() {
   const ringRef = useRef<SVGSVGElement>(null)
+  const tiltRef = useRef<HTMLDivElement>(null)
   const [hasPhoto, setHasPhoto] = useState(false)
 
   useEffect(() => {
@@ -71,8 +72,26 @@ function Avatar() {
     }
   }, [])
 
+  useEffect(() => {
+    const el = tiltRef.current
+    if (!el || !window.matchMedia('(pointer: fine)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    gsap.set(el, { transformPerspective: 700 })
+    const rx = gsap.quickTo(el, 'rotationX', { duration: 0.6, ease: 'power3.out' })
+    const ry = gsap.quickTo(el, 'rotationY', { duration: 0.6, ease: 'power3.out' })
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect()
+      const dx = (e.clientX - (rect.left + rect.width / 2)) / window.innerWidth
+      const dy = (e.clientY - (rect.top + rect.height / 2)) / window.innerHeight
+      ry(dx * 28)
+      rx(-dy * 28)
+    }
+    window.addEventListener('pointermove', onMove)
+    return () => window.removeEventListener('pointermove', onMove)
+  }, [])
+
   return (
-    <div className="relative h-32 w-32 shrink-0 sm:h-44 sm:w-44">
+    <div ref={tiltRef} className="relative h-32 w-32 shrink-0 sm:h-44 sm:w-44">
       <div
         className="absolute inset-0 -z-10 animate-pulse rounded-full blur-2xl"
         style={{ background: 'var(--accent-soft)' }}
