@@ -1,7 +1,7 @@
-import { animate } from 'framer-motion'
+import { animate } from 'animejs'
 import { useEffect, useRef, useState } from 'react'
 
-export function useCountUp(target: number, active: boolean, duration = 1.4) {
+export function useCountUp(target: number, active: boolean, duration = 1600) {
   const [value, setValue] = useState(0)
   const started = useRef(false)
 
@@ -9,13 +9,17 @@ export function useCountUp(target: number, active: boolean, duration = 1.4) {
     if (!active || started.current) return
     started.current = true
 
-    const controls = animate(0, target, {
+    const counter = { v: 0 }
+    const animation = animate(counter, {
+      v: target,
       duration,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (latest) => setValue(Math.round(latest)),
+      ease: 'outExpo',
+      onUpdate: () => setValue(Math.round(counter.v)),
     })
 
-    return () => controls.stop()
+    return () => {
+      animation.pause()
+    }
   }, [active, target, duration])
 
   return value

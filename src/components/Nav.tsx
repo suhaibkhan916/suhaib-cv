@@ -40,7 +40,7 @@ export function Nav() {
             <a
               key={link.id}
               href={`#${link.id}`}
-              className="relative rounded-full px-3.5 py-1.5 font-mono text-[13px] transition-colors"
+              className="hvr-underline-from-center relative rounded-full px-3.5 py-1.5 font-mono text-[13px] transition-colors"
               style={{
                 color: activeId === link.id ? 'var(--accent)' : 'var(--text-muted)',
                 background: activeId === link.id ? 'var(--accent-soft)' : 'transparent',
@@ -52,15 +52,19 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <span className="hvr-float hidden sm:inline-block">
           <button
             type="button"
             onClick={handlePrint}
-            className="hidden items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-mono text-[13px] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] sm:flex"
+            className="flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-mono text-[13px] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
             style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
           >
             <FiDownload size={13} /> PDF
           </button>
-          <ThemeToggle />
+          </span>
+          <span className="hvr-grow-rotate inline-block">
+            <ThemeToggle />
+          </span>
           <button
             type="button"
             className="grid h-9 w-9 place-items-center rounded-full border md:hidden"
