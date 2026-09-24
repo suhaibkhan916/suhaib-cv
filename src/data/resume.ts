@@ -12,7 +12,7 @@ export const profile = {
   linkedinUrl: 'https://linkedin.com/in/muhsuhaib',
   github: 'github.com/suhaibkhan916',
   githubUrl: 'https://github.com/suhaibkhan916',
-  photo: '/profile.jpg',
+  photo: '/profile.webp',
   summary:
     'Software engineer with 5+ years of professional experience across engineering and IT support. Three years building Python and Django REST Framework services, data pipelines and infrastructure automation on Azure and Google Cloud Platform, including an Azure Data Factory ETL pipeline feeding Power BI reporting and containerised workloads on Docker and Kubernetes. Two further years in IT support at BCA UK, handling 30+ tickets a day and producing operational data reporting, and now working as an IT Support / Service Desk Agent.',
   summarySecond:
