@@ -1,5 +1,7 @@
 import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
+import { CosmicCanvas } from './CosmicCanvas'
+import { SkillOrbit } from './SkillOrbit'
 
 export function Background() {
   const blobA = useRef<HTMLDivElement>(null)
@@ -44,8 +46,9 @@ export function Background() {
 
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden no-print" aria-hidden="true">
+      <CosmicCanvas />
       <div
-        className="absolute inset-0 opacity-[0.35]"
+        className="absolute inset-0 opacity-[0.22]"
         style={{
           backgroundImage:
             'linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)',
@@ -63,6 +66,7 @@ export function Background() {
         className="absolute top-[40vh] -right-40 h-[420px] w-[420px] rounded-full blur-3xl"
         style={{ background: 'var(--accent-2-soft)' }}
       />
+      <SkillOrbit />
       <div
         ref={spotlight}
         className="absolute left-0 top-0 h-[520px] w-[520px] rounded-full blur-3xl"

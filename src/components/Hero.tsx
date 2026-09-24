@@ -81,14 +81,14 @@ function Avatar() {
   }, [])
 
   return (
-    <div ref={tiltRef} className="relative h-32 w-32 shrink-0 sm:h-44 sm:w-44">
+    <div ref={tiltRef} className="relative isolate h-32 w-32 shrink-0 sm:h-44 sm:w-44">
       <div
         className="absolute inset-0 -z-10 animate-pulse rounded-full blur-2xl"
         style={{ background: 'var(--accent-soft)' }}
       />
       <OrbitSystem />
       <div
-        className="relative grid h-full w-full place-items-center overflow-hidden rounded-full border-2 font-[var(--font-display)] text-3xl font-bold sm:text-5xl"
+        className="relative z-[3] grid h-full w-full place-items-center overflow-hidden rounded-full border-2 font-[var(--font-display)] text-3xl font-bold sm:text-5xl"
         style={{
           borderColor: 'var(--accent)',
           color: 'var(--accent)',

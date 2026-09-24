@@ -6,6 +6,7 @@ import { Contact } from './components/Contact'
 import { Education } from './components/Education'
 import { Experience } from './components/Experience'
 import { Hero } from './components/Hero'
+import { Hud } from './components/Hud'
 import { Nav } from './components/Nav'
 import { Publications } from './components/Publications'
 import { ScrollProgress } from './components/ScrollProgress'
@@ -30,6 +31,7 @@ function App() {
       <div className="grain no-print" aria-hidden="true" />
       <CommandPalette />
       <Background />
+      <Hud />
       <ScrollProgress />
       <Nav />
       <main>
