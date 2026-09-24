@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { FiDownload, FiMenu, FiSearch, FiX } from 'react-icons/fi'
+import { FiMenu, FiSearch, FiX } from 'react-icons/fi'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { profile } from '../data/resume'
 import { OPEN_PALETTE_EVENT } from './CommandPalette'
+import { DownloadList, DownloadMenu } from './DownloadMenu'
 import { ThemeToggle } from './ThemeToggle'
 
 const links = [
@@ -17,8 +18,6 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false)
   const activeId = useScrollSpy(links.map((l) => l.id))
-
-  const handlePrint = () => window.print()
 
   return (
     <header
@@ -62,16 +61,7 @@ export function Nav() {
           >
             <FiSearch size={12} /> Ctrl K
           </button>
-          <span className="hvr-float hidden sm:inline-block">
-          <button
-            type="button"
-            onClick={handlePrint}
-            className="flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-mono text-[13px] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
-            style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
-          >
-            <FiDownload size={13} /> PDF
-          </button>
-          </span>
+          <DownloadMenu />
           <span className="hvr-grow-rotate inline-block">
             <ThemeToggle />
           </span>
@@ -103,14 +93,7 @@ export function Nav() {
               {link.label}
             </a>
           ))}
-          <button
-            type="button"
-            onClick={handlePrint}
-            className="mt-1 flex items-center gap-1.5 rounded-lg px-3 py-2 font-mono text-sm"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            <FiDownload size={13} /> Download PDF
-          </button>
+          <DownloadList onDone={() => setOpen(false)} />
         </nav>
       )}
     </header>
