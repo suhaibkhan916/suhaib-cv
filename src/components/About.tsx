@@ -17,7 +17,7 @@ function StatCard({ value, suffix, label, delay }: { value: number; suffix: stri
       viewport={{ once: true }}
       whileHover={{ y: -6, transition: { duration: 0.2 } }}
       transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      className="rounded-2xl border p-5 transition-colors hover:border-[var(--accent)]"
+      className="spotlight rounded-2xl border p-5"
       style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
     >
       <div className="font-[var(--font-display)] text-3xl font-bold" style={{ color: 'var(--accent)' }}>

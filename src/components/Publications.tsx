@@ -17,7 +17,7 @@ export function Publications() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="group block rounded-2xl border p-5 transition-colors hover:border-[var(--accent)]"
+            className="group spotlight block rounded-2xl border p-5"
             style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
           >
             <div className="flex items-start justify-between gap-3">

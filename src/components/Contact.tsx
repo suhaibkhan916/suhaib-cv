@@ -25,7 +25,7 @@ export function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-3xl border p-8 sm:p-12"
+          className="gradient-border rounded-3xl border p-8 sm:p-12"
           style={{ borderColor: 'var(--border)', background: 'var(--surface)', boxShadow: 'var(--glow)' }}
         >
           <span className="font-mono text-sm" style={{ color: 'var(--accent)' }}>

@@ -114,7 +114,7 @@ export const skillGroups: SkillGroup[] = [
       { name: 'Google Maps API', tier: 'Proficient' },
       { name: 'Google SERP API', tier: 'Proficient' },
       { name: 'OpenRouteService API', tier: 'Proficient' },
-      { name: 'Google OAuth', tier: 'Proficient' },
+      { name: 'OAuth 2.0 / Google OAuth', tier: 'Proficient' },
       { name: 'Stripe API', tier: 'Proficient' },
       { name: 'Braintree', tier: 'Proficient' },
       { name: 'Swagger / OpenAPI', tier: 'Advanced' },
@@ -165,7 +165,7 @@ export const experience: ExperienceEntry[] = [
     tags: ['Freshdesk', 'Freshservice', 'SLA management', 'SQL', 'Excel', 'Trello'],
   },
   {
-    role: 'IT Support',
+    role: 'IT Support Analyst',
     company: 'BCA UK',
     period: 'Aug 2024 – Aug 2026',
     highlights: [

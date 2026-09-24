@@ -1,4 +1,5 @@
-import { motion } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useState } from 'react'
 import { skillGroups, tierWeight, type Skill } from '../data/resume'
 import { Section } from './Section'
 
@@ -11,7 +12,7 @@ function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
         <span className="text-sm transition-colors group-hover:text-[var(--accent)]" style={{ color: 'var(--text)' }}>
           {skill.name}
         </span>
-        <span className="font-mono text-[11px] shrink-0" style={{ color: 'var(--text-faint)' }}>
+        <span className="shrink-0 font-mono text-[11px]" style={{ color: 'var(--text-faint)' }}>
           {skill.tier}
         </span>
       </div>
@@ -32,42 +33,82 @@ function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
   )
 }
 
+const ALL = 'All'
+
 export function Skills() {
+  const [active, setActive] = useState(ALL)
+  const visible = active === ALL ? skillGroups : skillGroups.filter((g) => g.category === active)
+  const solo = visible.length === 1
+
   return (
     <Section
       id="skills"
       index="02"
       title="Skills"
-      subtitle="Self-assessed proficiency by depth of production use — grouped the way I actually reach for them on the job."
+      subtitle="Self-assessed proficiency by depth of production use, grouped the way I actually reach for them on the job."
     >
-      <div className="grid gap-8 sm:grid-cols-2">
-        {skillGroups.map((group, gi) => (
-          <motion.div
-            key={group.category}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            transition={{ duration: 0.5, delay: gi * 0.05 }}
-            className={`rounded-2xl border p-5 transition-colors hover:border-[var(--accent)] ${
-              gi === skillGroups.length - 1 && skillGroups.length % 2 === 1 ? 'sm:col-span-2' : ''
-            }`}
-            style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
-          >
-            <h3 className="font-[var(--font-display)] text-sm font-semibold" style={{ color: 'var(--text)' }}>
-              {group.category}
-            </h3>
-            <p className="mt-1 mb-5 text-xs" style={{ color: 'var(--text-faint)' }}>
-              {group.blurb}
-            </p>
-            <div className="space-y-4">
-              {group.skills.map((skill, si) => (
-                <SkillBar key={skill.name} skill={skill} delay={si * 0.04} />
-              ))}
-            </div>
-          </motion.div>
-        ))}
+      <div className="no-print mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter skills by category">
+        {[ALL, ...skillGroups.map((g) => g.category)].map((label) => {
+          const selected = active === label
+          return (
+            <button
+              key={label}
+              type="button"
+              role="tab"
+              aria-selected={selected}
+              onClick={() => setActive(label)}
+              className="relative rounded-full border px-3.5 py-1.5 font-mono text-xs transition-colors hover:border-[var(--accent)]"
+              style={{
+                borderColor: selected ? 'transparent' : 'var(--border)',
+                color: selected ? 'var(--bg)' : 'var(--text-muted)',
+              }}
+            >
+              {selected && (
+                <motion.span
+                  layoutId="skill-filter-pill"
+                  className="absolute inset-0 rounded-full"
+                  style={{ background: 'var(--accent)' }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                />
+              )}
+              <span className="relative">{label}</span>
+            </button>
+          )
+        })}
       </div>
+
+      <motion.div layout className="grid gap-6 sm:grid-cols-2">
+        <AnimatePresence mode="popLayout">
+          {visible.map((group, gi) => {
+            const spanFull = solo || (visible.length % 2 === 1 && gi === visible.length - 1)
+            return (
+              <motion.div
+                key={group.category}
+                layout
+                initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.4, delay: gi * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                className={`spotlight rounded-2xl border p-5 ${spanFull ? 'sm:col-span-2' : ''}`}
+                style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
+              >
+                <h3 className="font-[var(--font-display)] text-sm font-semibold" style={{ color: 'var(--text)' }}>
+                  {group.category}
+                </h3>
+                <p className="mt-1 mb-5 text-xs" style={{ color: 'var(--text-faint)' }}>
+                  {group.blurb}
+                </p>
+                <div className={`gap-x-8 gap-y-4 ${solo ? 'grid sm:grid-cols-2' : 'space-y-4'}`}>
+                  {group.skills.map((skill, si) => (
+                    <SkillBar key={skill.name} skill={skill} delay={si * 0.04} />
+                  ))}
+                </div>
+              </motion.div>
+            )
+          })}
+        </AnimatePresence>
+      </motion.div>
     </Section>
   )
 }

@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { FiDownload, FiMenu, FiX } from 'react-icons/fi'
+import { FiDownload, FiMenu, FiSearch, FiX } from 'react-icons/fi'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import { profile } from '../data/resume'
+import { OPEN_PALETTE_EVENT } from './CommandPalette'
 import { ThemeToggle } from './ThemeToggle'
 
 const links = [
@@ -52,6 +53,15 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event(OPEN_PALETTE_EVENT))}
+            aria-label="Open command palette"
+            className="hidden items-center gap-2 rounded-full border px-3 py-1.5 font-mono text-[12px] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] lg:flex"
+            style={{ borderColor: 'var(--border)', color: 'var(--text-faint)' }}
+          >
+            <FiSearch size={12} /> Ctrl K
+          </button>
           <span className="hvr-float hidden sm:inline-block">
           <button
             type="button"
