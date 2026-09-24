@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { FiExternalLink } from 'react-icons/fi'
 import { publications } from '../data/resume'
 import { Section } from './Section'

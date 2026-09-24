@@ -1,19 +1,22 @@
 export const profile = {
   name: 'Muhammad Suhaib',
   initials: 'MS',
-  title: 'Software Engineer',
+  title: 'Software Engineer · MSc Cyber Security',
   tagline:
-    'I build backend services and cloud data pipelines — Python, Django and infrastructure automation across Azure, AWS and GCP.',
+    'Five years across software engineering, IT support and data reporting. I build Python and Django services, Azure and GCP data pipelines and automation, backed by an MSc in Cyber Security, CompTIA Security+ and TryHackMe SAL1.',
   location: 'Bristol, United Kingdom',
-  relocation: 'Open to UK relocation',
+  relocation: 'Open to UK & EU relocation',
   phone: '+44 7466 648517',
   email: 'suhaibkhan916@gmail.com',
   linkedin: 'linkedin.com/in/muhsuhaib',
   linkedinUrl: 'https://linkedin.com/in/muhsuhaib',
   github: 'github.com/suhaibkhan916',
   githubUrl: 'https://github.com/suhaibkhan916',
+  photo: '/profile.jpg',
   summary:
-    'Software engineer with three years of production experience building Python and Django REST Framework services across Azure, AWS and Google Cloud Platform, including data pipeline design and infrastructure automation. Built an Azure Data Factory ETL pipeline feeding Power BI reporting and deployed containerised workloads on AWS EKS using Docker and Kubernetes.',
+    'Software engineer with 5+ years of professional experience across engineering and IT support. Three years building Python and Django REST Framework services, data pipelines and infrastructure automation on Azure and Google Cloud Platform, including an Azure Data Factory ETL pipeline feeding Power BI reporting and containerised workloads on Docker and Kubernetes. Two further years in IT support at BCA UK, handling 30+ tickets a day and producing operational data reporting, and now working as an IT Support / Service Desk Agent.',
+  summarySecond:
+    'Holds an MSc in Cyber Security (Distinction), CompTIA Security+ and TryHackMe SAL1, with hands-on cyber security lab experience on TryHackMe and a peer-reviewed publication on AES encryption under quantum computing techniques.',
 } as const
 
 export type SkillTier = 'Expert' | 'Advanced' | 'Proficient' | 'Working knowledge'
@@ -39,29 +42,43 @@ export interface SkillGroup {
 export const skillGroups: SkillGroup[] = [
   {
     category: 'Languages & Frameworks',
-    blurb: 'Core stack for day-to-day backend engineering.',
+    blurb: 'Core stack for backend and full-stack engineering.',
     skills: [
       { name: 'Python', tier: 'Expert' },
       { name: 'Django REST Framework', tier: 'Expert' },
+      { name: 'Flask', tier: 'Proficient' },
       { name: 'SQL', tier: 'Advanced' },
+      { name: 'JavaScript', tier: 'Proficient' },
+      { name: 'TypeScript', tier: 'Proficient' },
+      { name: 'React', tier: 'Proficient' },
+      { name: 'Go', tier: 'Working knowledge' },
+    ],
+  },
+  {
+    category: 'Cyber Security',
+    blurb: 'MSc-level theory backed by hands-on lab practice.',
+    skills: [
+      { name: 'CompTIA Security+', tier: 'Advanced' },
+      { name: 'TryHackMe labs & SAL1', tier: 'Advanced' },
+      { name: 'ISO 27001 Annex A controls', tier: 'Proficient' },
+      { name: 'Phishing analysis', tier: 'Proficient' },
+      { name: 'Cryptography research (AES, quantum)', tier: 'Proficient' },
     ],
   },
   {
     category: 'Cloud & Data',
-    blurb: 'Provisioning, pipelines and reporting across three clouds.',
+    blurb: 'Pipelines, storage and reporting on Azure and GCP.',
     skills: [
       { name: 'Microsoft Azure', tier: 'Expert' },
       { name: 'Azure Data Factory', tier: 'Advanced' },
       { name: 'Azure Synapse', tier: 'Proficient' },
       { name: 'Azure Data Lake', tier: 'Proficient' },
       { name: 'Azure Blob Storage & CDN', tier: 'Advanced' },
-      { name: 'Amazon Web Services (AWS)', tier: 'Advanced' },
-      { name: 'AWS EKS / Lambda / S3 / RDS', tier: 'Advanced' },
-      { name: 'AWS CloudFormation', tier: 'Proficient' },
       { name: 'Google Cloud Platform', tier: 'Proficient' },
       { name: 'Google BigQuery', tier: 'Proficient' },
       { name: 'Databricks', tier: 'Proficient' },
       { name: 'Power BI', tier: 'Proficient' },
+      { name: 'Data pipeline design & reporting', tier: 'Advanced' },
     ],
   },
   {
@@ -88,14 +105,40 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    category: 'Integration',
+    category: 'API Integration',
     blurb: 'Connecting services together, documented and testable.',
     skills: [
       { name: 'REST API integration', tier: 'Expert' },
       { name: 'Third-party API integration', tier: 'Advanced' },
+      { name: 'IBM Quantum Platform', tier: 'Proficient' },
+      { name: 'Google Maps API', tier: 'Proficient' },
+      { name: 'Google SERP API', tier: 'Proficient' },
+      { name: 'OpenRouteService API', tier: 'Proficient' },
+      { name: 'Google OAuth', tier: 'Proficient' },
       { name: 'Stripe API', tier: 'Proficient' },
+      { name: 'Braintree', tier: 'Proficient' },
       { name: 'Swagger / OpenAPI', tier: 'Advanced' },
       { name: 'Postman', tier: 'Advanced' },
+    ],
+  },
+  {
+    category: 'AI & Automation',
+    blurb: 'Using AI tooling and scripting to remove manual work.',
+    skills: [
+      { name: 'Claude Code', tier: 'Advanced' },
+      { name: 'Cursor AI', tier: 'Advanced' },
+      { name: 'Chatbots', tier: 'Proficient' },
+      { name: 'Automation', tier: 'Advanced' },
+    ],
+  },
+  {
+    category: 'IT Support & Service Desk',
+    blurb: 'Two years of live helpdesk operations and reporting.',
+    skills: [
+      { name: 'Freshdesk & Freshservice', tier: 'Advanced' },
+      { name: 'SLA-driven ticket management', tier: 'Advanced' },
+      { name: 'SQL & Excel reporting', tier: 'Advanced' },
+      { name: 'Stakeholder communication', tier: 'Advanced' },
     ],
   },
 ]
@@ -116,40 +159,41 @@ export const experience: ExperienceEntry[] = [
     period: 'Aug 2026 – Present',
     current: true,
     highlights: [
-      'Manage inbound customer support queries through Freshdesk and Freshservice within SLA-bound queues, escalating unresolved issues to internal IT teams with clear technical hand-off notes.',
-      'Use SQL to query records and Excel to track and report on ticket status, coordinating with cross-functional teams via Trello to keep workflows visible.',
+      'Resolve inbound customer queries in Freshdesk and Freshservice within SLA-bound queues, escalating unresolved issues to internal IT teams with clear technical hand-off notes so engineers can act without re-triaging.',
+      'Query records with SQL and report on ticket status in Excel, coordinating with cross-functional teams through Trello to keep workflows visible.',
     ],
-    tags: ['SQL', 'Freshdesk', 'Freshservice', 'Trello'],
+    tags: ['Freshdesk', 'Freshservice', 'SLA management', 'SQL', 'Excel', 'Trello'],
   },
   {
-    role: 'Central Operations Administrator',
+    role: 'IT Support',
     company: 'BCA UK',
     period: 'Aug 2024 – Aug 2026',
     highlights: [
-      'Supported UK automotive dealers on a vehicle services helpdesk system, handling over 30 tickets daily while maintaining direct communication with dealers, internal stakeholders and C-suite contacts.',
-      'Produced operational reporting on request and proactively surfaced recurring issues to reduce repeat queries reaching the queue.',
+      'Supported UK automotive dealers on a vehicle services helpdesk system, handling over 30 tickets a day while communicating directly with dealers, internal stakeholders and C-suite contacts.',
+      'Produced operational and data reporting on request, and proactively surfaced recurring issues to reduce repeat queries reaching the queue.',
+      'Triaged and documented incidents on the helpdesk platform, following each ticket through to resolution or a clean escalation.',
     ],
-    tags: ['Stakeholder management', 'Reporting', 'Process improvement'],
+    tags: ['Helpdesk', 'Incident triage', 'Data reporting', 'Stakeholder communication'],
   },
   {
     role: 'Software Engineer',
     company: 'Prismware Technologies',
     period: 'Dec 2020 – Sep 2023',
     highlights: [
-      'Built .tf Terraform configuration from scratch alongside a colleague to provision Azure and Google Cloud Platform virtual machines and databases, as part of an ongoing internal infrastructure automation project.',
+      'Built Terraform configuration from scratch alongside a colleague to provision Azure and Google Cloud Platform virtual machines and databases, as part of an ongoing internal infrastructure automation project.',
       'Developed a Jenkins CI/CD pipeline and supporting automation scripts from scratch with a colleague, and resolved version, library and compatibility issues in Docker builds pushed to Azure Container Registry.',
-      'Designed and deployed a daily scheduled Python and Django Kubernetes CronJob on AWS EKS that replaced a manual daily reporting process, authoring manifests and Helm chart values for related workloads.',
+      'Designed and deployed a daily scheduled Python and Django Kubernetes CronJob that replaced a manual daily reporting process, authoring manifests and Helm chart values for related workloads.',
       'Fed a Power BI reporting dataset with an Azure Data Factory ETL pipeline, partnering with the Power BI development team to validate the data model and reviewing dashboards for accuracy.',
       'Delivered the media storage and delivery pipeline for a video and social media application using Azure Blob Storage and Azure CDN, and documented integrated REST APIs with Swagger/OpenAPI.',
     ],
-    tags: ['Python', 'Django', 'Terraform', 'Jenkins', 'Docker', 'AWS EKS', 'Kubernetes', 'Azure Data Factory', 'Power BI'],
+    tags: ['Python', 'Django', 'Terraform', 'Jenkins', 'Docker', 'Kubernetes', 'Azure Data Factory', 'Power BI'],
   },
 ]
 
 export const impactStats = [
-  { value: 3, suffix: '+', label: 'years production engineering' },
+  { value: 5, suffix: '+', label: 'years professional experience' },
+  { value: 3, suffix: '+', label: 'years in software engineering' },
   { value: 30, suffix: '+', label: 'support tickets handled daily' },
-  { value: 3, suffix: '', label: 'cloud platforms in production (Azure, AWS, GCP)' },
   { value: 1, suffix: '', label: 'peer-reviewed publication' },
 ] as const
 
@@ -172,7 +216,7 @@ export const publications: Publication[] = [
 export interface Certification {
   name: string
   issuer: string
-  year: string
+  year?: string
   expires?: string
   credentialUrl?: string
   credentialId?: string
@@ -187,6 +231,11 @@ export const certifications: Certification[] = [
     expires: 'Dec 2028',
     credentialUrl: 'https://www.credly.com/badges/26cec992-f533-4365-a135-8c2dd5486d44/public_url',
     skills: ['Windows', 'Technical Documentation'],
+  },
+  {
+    name: 'Security Analyst Level 1 (SAL1)',
+    issuer: 'TryHackMe',
+    skills: ['Security analysis', 'Hands-on labs'],
   },
   {
     name: 'ISO 27001:2022-Compliant Cybersecurity: The Annex A Controls',

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { skillGroups, tierWeight, type Skill } from '../data/resume'
 import { Section } from './Section'
 
@@ -6,16 +6,19 @@ function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
   const weight = tierWeight[skill.tier]
 
   return (
-    <div>
+    <div className="group">
       <div className="mb-1.5 flex items-baseline justify-between gap-2">
-        <span className="text-sm" style={{ color: 'var(--text)' }}>
+        <span className="text-sm transition-colors group-hover:text-[var(--accent)]" style={{ color: 'var(--text)' }}>
           {skill.name}
         </span>
         <span className="font-mono text-[11px] shrink-0" style={{ color: 'var(--text-faint)' }}>
           {skill.tier}
         </span>
       </div>
-      <div className="h-1.5 w-full overflow-hidden rounded-full" style={{ background: 'var(--border)' }}>
+      <div
+        className="h-1.5 w-full overflow-hidden rounded-full transition-transform duration-200 group-hover:scale-y-[1.8]"
+        style={{ background: 'var(--border)' }}
+      >
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${weight}%` }}
@@ -44,8 +47,9 @@ export function Skills() {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
             transition={{ duration: 0.5, delay: gi * 0.05 }}
-            className={`rounded-2xl border p-5 ${
+            className={`rounded-2xl border p-5 transition-colors hover:border-[var(--accent)] ${
               gi === skillGroups.length - 1 && skillGroups.length % 2 === 1 ? 'sm:col-span-2' : ''
             }`}
             style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}

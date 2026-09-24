@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { FiAward, FiBookOpen, FiExternalLink } from 'react-icons/fi'
 import { certifications, education } from '../data/resume'
 import { Section } from './Section'
@@ -21,8 +21,9 @@ export function Education() {
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="rounded-2xl border p-5"
+                className="rounded-2xl border p-5 transition-colors hover:border-[var(--accent)]"
                 style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -60,8 +61,9 @@ export function Education() {
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="rounded-2xl border p-5"
+                className="rounded-2xl border p-5 transition-colors hover:border-[var(--accent)]"
                 style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
               >
                 <div className="flex items-start justify-between gap-3">
@@ -83,7 +85,8 @@ export function Education() {
                 </div>
 
                 <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
-                  {cert.issuer} &middot; {cert.year}
+                  {cert.issuer}
+                  {cert.year && ` · ${cert.year}`}
                   {cert.expires && ` – ${cert.expires}`}
                 </p>
 
@@ -98,7 +101,7 @@ export function Education() {
                     {cert.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-full border px-2.5 py-0.5 font-mono text-[11px]"
+                        className="hvr-grow rounded-full border px-2.5 py-0.5 font-mono text-[11px]"
                         style={{ borderColor: 'var(--border)', color: 'var(--text-faint)' }}
                       >
                         {skill}
