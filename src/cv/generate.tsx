@@ -37,13 +37,16 @@ async function loadPhoto(): Promise<string | undefined> {
     const bitmap = await createImageBitmap(await res.blob())
     const size = Math.min(bitmap.width, bitmap.height)
     const canvas = document.createElement('canvas')
-    canvas.width = canvas.height = Math.min(size, 500)
+    canvas.width = canvas.height = Math.min(size, 420)
     const ctx = canvas.getContext('2d')
     if (!ctx) return undefined
+    ctx.beginPath()
+    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, 0, Math.PI * 2)
+    ctx.clip()
     ctx.fillStyle = '#0f1b33'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(bitmap, (bitmap.width - size) / 2, (bitmap.height - size) / 2, size, size, 0, 0, canvas.width, canvas.height)
-    return canvas.toDataURL('image/jpeg', 0.92)
+    return canvas.toDataURL('image/png')
   } catch {
     return undefined
   }
