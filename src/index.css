@@ -164,6 +164,54 @@ body {
   }
 }
 
+/* Realistic mini Earth: procedural texture, scrolling for rotation, lit from top-left */
+.earth {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #0b4a86 url('/earth.webp') 0 0 / 200% 100% repeat-x;
+  animation: earth-spin 70s linear infinite;
+  box-shadow: 0 0 0.9em 0.08em rgba(96, 165, 250, 0.55), 0 0 0.25em rgba(190, 220, 255, 0.7);
+}
+.earth-clouds {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: url('/clouds.webp') 0 0 / 200% 100% repeat-x;
+  opacity: 0.85;
+  animation: earth-spin 46s linear infinite;
+}
+.earth::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.32) 0, transparent 34%),
+    radial-gradient(circle at 36% 34%, transparent 34%, rgba(2, 6, 23, 0.55) 68%, rgba(2, 6, 23, 0.95) 100%);
+  box-shadow: inset 0 0 0.5em rgba(140, 195, 255, 0.6);
+}
+@keyframes earth-spin {
+  to {
+    background-position: 200% 0;
+  }
+}
+.moon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #f1f5f9 0, #9aa4b2 45%, #3b4453 100%);
+  box-shadow: 0 0 4px rgba(226, 232, 240, 0.5);
+}
+
+@keyframes starmap-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Film grain texture */
 .grain {
   position: fixed;

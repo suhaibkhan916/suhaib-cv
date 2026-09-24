@@ -1,152 +1,73 @@
-import { animate, stagger } from 'animejs'
-import { useEffect, useMemo, useRef } from 'react'
+import { tech, type TechIcon, type TechKey } from '../data/techIcons'
+import { Orbits3D, type BodyDef, type OrbitDef } from './Orbits3D'
 
-const C = 100
-
-interface Orbit {
-  r: number
-  dashed: boolean
-  duration: number
-  dir: 1 | -1
-  start: number
-}
-
-const orbits: Orbit[] = [
-  { r: 62, dashed: true, duration: 14000, dir: 1, start: 20 },
-  { r: 71, dashed: false, duration: 22000, dir: -1, start: 140 },
-  { r: 81, dashed: true, duration: 32000, dir: 1, start: 250 },
-  { r: 91, dashed: false, duration: 46000, dir: -1, start: 60 },
-]
-
-function seeded(seed: number) {
-  let s = seed
-  return () => {
-    s = (s * 16807) % 2147483647
-    return (s - 1) / 2147483646
-  }
-}
-
-export function OrbitSystem() {
-  const root = useRef<SVGSVGElement>(null)
-
-  const stars = useMemo(() => {
-    const rand = seeded(42)
-    return Array.from({ length: 22 }, () => {
-      const angle = rand() * Math.PI * 2
-      const radius = 58 + rand() * 40
-      return {
-        x: C + Math.cos(angle) * radius,
-        y: C + Math.sin(angle) * radius,
-        size: 0.35 + rand() * 0.75,
-        sparkle: rand() > 0.78,
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    const svg = root.current
-    if (!svg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-
-    const runs: { revert: () => void }[] = []
-
-    svg.querySelectorAll<SVGGElement>('[data-orbit]').forEach((el) => {
-      const dir = Number(el.dataset.dir)
-      const start = Number(el.dataset.start)
-      runs.push(
-        animate(el, {
-          rotate: [start, start + 360 * dir],
-          duration: Number(el.dataset.duration),
-          ease: 'linear',
-          loop: true,
-        }),
-      )
-    })
-
-    const moon = svg.querySelector<SVGGElement>('[data-moon]')
-    if (moon) runs.push(animate(moon, { rotate: [0, -360], duration: 3800, ease: 'linear', loop: true }))
-
-    runs.push(
-      animate(svg.querySelectorAll('[data-star]'), {
-        opacity: [0.1, 1],
-        duration: 1700,
-        delay: stagger(140),
-        alternate: true,
-        loop: true,
-        ease: 'inOutSine',
-      }),
-    )
-
-    return () => runs.forEach((r) => r.revert())
-  }, [])
-
+export function Chip({ t, glow = true }: { t: TechIcon; glow?: boolean }) {
+  const Icon = t.icon
   return (
-    <svg
-      ref={root}
-      viewBox="0 0 200 200"
-      className="pointer-events-none absolute -inset-[40%]"
-      aria-hidden="true"
+    <div
+      className="grid h-full w-full place-items-center rounded-full border"
+      style={{
+        background: 'color-mix(in srgb, var(--bg-elevated) 86%, transparent)',
+        borderColor: `color-mix(in srgb, ${t.color} 50%, var(--border))`,
+        color: t.color,
+        boxShadow: glow ? `0 0 12px -2px ${t.color}88` : undefined,
+        backdropFilter: 'blur(2px)',
+      }}
+      title={t.name}
     >
-      {orbits.map((o) => (
-        <circle
-          key={`path-${o.r}`}
-          cx={C}
-          cy={C}
-          r={o.r}
-          fill="none"
-          stroke={o.dashed ? 'var(--accent)' : 'var(--border-strong)'}
-          strokeWidth={o.dashed ? 0.28 : 0.35}
-          strokeDasharray={o.dashed ? '1.2 2.6' : undefined}
-          opacity={o.dashed ? 0.65 : 0.9}
-        />
-      ))}
+      <Icon style={{ width: '56%', height: '56%' }} />
+    </div>
+  )
+}
 
-      {stars.map((s, i) =>
-        s.sparkle ? (
-          <path
-            key={i}
-            data-star
-            d={`M${s.x} ${s.y - 2.2} L${s.x + 0.5} ${s.y - 0.5} L${s.x + 2.2} ${s.y} L${s.x + 0.5} ${s.y + 0.5} L${s.x} ${s.y + 2.2} L${s.x - 0.5} ${s.y + 0.5} L${s.x - 2.2} ${s.y} L${s.x - 0.5} ${s.y - 0.5}Z`}
-            fill="var(--accent-strong)"
-          />
-        ) : (
-          <circle key={i} data-star cx={s.x} cy={s.y} r={s.size} fill="var(--text-muted)" />
-        ),
-      )}
-
-      {/* Orbit 1: violet planet */}
-      <g data-orbit data-dir={orbits[0].dir} data-start={orbits[0].start} data-duration={orbits[0].duration} style={{ transformOrigin: `${C}px ${C}px` }}>
-        <circle cx={C + orbits[0].r} cy={C} r="2.3" fill="var(--accent-2)" />
-      </g>
-
-      {/* Orbit 2: amber planet with a moon */}
-      <g data-orbit data-dir={orbits[1].dir} data-start={orbits[1].start} data-duration={orbits[1].duration} style={{ transformOrigin: `${C}px ${C}px` }}>
-        <circle cx={C + orbits[1].r} cy={C} r="3.4" fill="#fbbf24" />
-        <g data-moon style={{ transformOrigin: `${C + orbits[1].r}px ${C}px` }}>
-          <circle cx={C + orbits[1].r + 6.5} cy={C} r="1.15" fill="var(--text)" opacity="0.85" />
-        </g>
-      </g>
-
-      {/* Orbit 3: rose planet */}
-      <g data-orbit data-dir={orbits[2].dir} data-start={orbits[2].start} data-duration={orbits[2].duration} style={{ transformOrigin: `${C}px ${C}px` }}>
-        <circle cx={C + orbits[2].r} cy={C} r="2.7" fill="#fb7185" />
-      </g>
-
-      {/* Orbit 4: ringed planet + small companion */}
-      <g data-orbit data-dir={orbits[3].dir} data-start={orbits[3].start} data-duration={orbits[3].duration} style={{ transformOrigin: `${C}px ${C}px` }}>
-        <ellipse
-          cx={C + orbits[3].r}
-          cy={C}
-          rx="7.2"
-          ry="2"
-          fill="none"
-          stroke="#fbbf24"
-          strokeWidth="0.7"
-          opacity="0.85"
-          transform={`rotate(-22 ${C + orbits[3].r} ${C})`}
-        />
-        <circle cx={C + orbits[3].r} cy={C} r="3.9" fill="var(--accent)" />
-        <circle cx={C - orbits[3].r} cy={C} r="1.6" fill="var(--accent-strong)" />
-      </g>
+export function Sparkle() {
+  return (
+    <svg viewBox="-10 -10 20 20" className="h-full w-full" style={{ filter: 'drop-shadow(0 0 3px var(--accent))' }}>
+      <path d="M0 -9 L1.6 -1.6 L9 0 L1.6 1.6 L0 9 L-1.6 1.6 L-9 0 L-1.6 -1.6Z" fill="var(--accent-strong)" />
     </svg>
   )
+}
+
+export function Earth() {
+  return (
+    <div className="earth">
+      <div className="earth-clouds" />
+    </div>
+  )
+}
+
+const chip = (key: TechKey) => <Chip t={tech[key]} />
+
+const orbits: OrbitDef[] = [
+  { r: 0.7, tilt: 19, roll: -16, speed: 0.5 },
+  { r: 0.8, tilt: 23, roll: 28, speed: -0.36, dashed: true },
+  { r: 0.9, tilt: 17, roll: -46, speed: 0.26 },
+  { r: 0.93, tilt: 26, roll: 66, speed: -0.19, dashed: true },
+]
+
+const ICON = 0.16
+
+const bodies: BodyDef[] = [
+  { key: 'python', orbit: 0, phase: 0, size: ICON, node: chip('python') },
+  { key: 'linux', orbit: 0, phase: 3.14, size: ICON, node: chip('linux') },
+  { key: 's0', orbit: 0, phase: 1.6, size: 0.07, node: <Sparkle />, hideBelow: 300 },
+
+  { key: 'docker', orbit: 1, phase: 0.4, size: ICON, node: chip('docker') },
+  { key: 'k8s', orbit: 1, phase: 2.5, size: ICON, node: chip('kubernetes'), hideBelow: 300 },
+  { key: 'azure', orbit: 1, phase: 4.6, size: ICON, node: chip('azure') },
+  { key: 's1', orbit: 1, phase: 5.7, size: 0.06, node: <Sparkle /> },
+
+  { key: 'earth', orbit: 2, phase: 1.1, size: 0.25, node: <Earth /> },
+  { key: 'moon', orbit: 2, phase: 0, size: 0.06, node: <div className="moon" />, satellite: { parent: 'earth', r: 0.2, speed: 2.4, tilt: 32 } },
+  { key: 's2', orbit: 2, phase: 4.1, size: 0.07, node: <Sparkle /> },
+  { key: 's3', orbit: 2, phase: 5.5, size: 0.05, node: <Sparkle />, hideBelow: 300 },
+
+  { key: 'react', orbit: 3, phase: 0.2, size: ICON, node: chip('react') },
+  { key: 'ts', orbit: 3, phase: 1.9, size: ICON, node: chip('typescript') },
+  { key: 'git', orbit: 3, phase: 3.4, size: ICON, node: chip('git'), hideBelow: 300 },
+  { key: 'tf', orbit: 3, phase: 4.9, size: ICON, node: chip('terraform'), hideBelow: 300 },
+]
+
+export function OrbitSystem() {
+  return <Orbits3D orbits={orbits} bodies={bodies} className="absolute -inset-[40%]" ringOpacity={0.4} />
 }
