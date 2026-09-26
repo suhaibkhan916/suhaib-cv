@@ -85,7 +85,8 @@ describe('index.html', () => {
   const html = read('index.html')
 
   it('loads no third-party scripts, styles or fonts', () => {
-    const external = [...html.matchAll(/\s(?:src|href)="(https?:\/\/[^"]+)"/g)].map((m) => new URL(m[1]).hostname)
+    const embeds = html.match(/<(?:script|link|img|iframe|source|video|audio)[^>]*>/g) ?? []
+    const external = embeds.flatMap((tag) => [...tag.matchAll(/\s(?:src|href)="(https?:\/\/[^"]+)"/g)].map((m) => new URL(m[1]).hostname))
     expect(external.filter((h) => h !== 'muhammadsuhaib.com')).toEqual([])
     expect(html).not.toMatch(/googleapis|gstatic|cdn\./)
   })
@@ -97,9 +98,10 @@ describe('index.html', () => {
 
   it('has valid structured data and a canonical URL', () => {
     const json = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1]
-    const data = JSON.parse(json ?? '{}')
-    expect(data['@type']).toBe('Person')
-    expect(data.name).toBe('Muhammad Suhaib')
+    const graph = JSON.parse(json ?? '{}')['@graph'] as { '@type': string; name: string }[]
+    const person = graph.find((n) => n['@type'] === 'Person')
+    expect(graph.map((n) => n['@type'])).toEqual(expect.arrayContaining(['ProfilePage', 'WebSite', 'Person']))
+    expect(person?.name).toBe('Muhammad Suhaib')
     expect(html).toContain('<link rel="canonical" href="https://muhammadsuhaib.com/" />')
   })
 
