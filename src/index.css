@@ -171,17 +171,28 @@ body {
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  background: #0b4a86 url('/earth.webp') 0 0 / 200% 100% repeat-x;
-  animation: earth-spin 70s linear infinite;
+  background: #0b4a86;
   box-shadow: 0 0 0.9em 0.08em rgba(96, 165, 250, 0.55), 0 0 0.25em rgba(190, 220, 255, 0.7);
 }
+.earth-map,
 .earth-clouds {
   position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: url('/clouds.webp') 0 0 / 200% 100% repeat-x;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  background-size: 50% 100%;
+  background-repeat: repeat-x;
+  will-change: transform;
+}
+.earth-map {
+  background-image: url('/earth.webp');
+  animation: earth-slide 70s linear infinite;
+}
+.earth-clouds {
+  background-image: url('/clouds.webp');
   opacity: 0.85;
-  animation: earth-spin 46s linear infinite;
+  animation: earth-slide 46s linear infinite;
 }
 .earth::after {
   content: '';
@@ -193,9 +204,9 @@ body {
     radial-gradient(circle at 36% 34%, transparent 34%, rgba(2, 6, 23, 0.55) 68%, rgba(2, 6, 23, 0.95) 100%);
   box-shadow: inset 0 0 0.5em rgba(140, 195, 255, 0.6);
 }
-@keyframes earth-spin {
+@keyframes earth-slide {
   to {
-    background-position: 200% 0;
+    transform: translateX(-50%);
   }
 }
 .moon {
@@ -218,12 +229,11 @@ body {
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.07;
-  mix-blend-mode: overlay;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 :root[data-theme='light'] .grain {
-  opacity: 0.045;
+  opacity: 0.03;
 }
 
 /* Infinite tech marquee */

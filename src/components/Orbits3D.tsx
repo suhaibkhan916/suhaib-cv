@@ -59,6 +59,9 @@ export function Orbits3D({
 
     let width = el.clientWidth
     let R = width / 2
+    const sizes: number[] = []
+    const hidden: boolean[] = []
+    const lastZ: string[] = []
 
     const sizeBodies = () => {
       width = el.clientWidth
@@ -66,9 +69,11 @@ export function Orbits3D({
       wrappers.forEach((w, i) => {
         const b = bodies[i]
         const px = Math.max(b.size * R, 14)
+        sizes[i] = px
+        hidden[i] = Boolean(b.hideBelow && width < b.hideBelow)
         w.style.width = `${px}px`
         w.style.height = `${px}px`
-        w.style.display = b.hideBelow && width < b.hideBelow ? 'none' : ''
+        w.style.display = hidden[i] ? 'none' : ''
       })
     }
 
@@ -104,10 +109,15 @@ export function Orbits3D({
         const depth = Math.max(-1, Math.min(1, z))
         const near = (depth + 1) / 2
         const scale = 0.7 + 0.45 * near
-        const px = w.offsetWidth
+        const px = sizes[i]
+        if (hidden[i]) return
         w.style.transform = `translate3d(${x * R - px / 2}px, ${y * R - px / 2}px, 0) scale(${scale.toFixed(3)})`
         w.style.opacity = String(((b.dim ?? 1) * (minOpacity + (1 - minOpacity) * near)).toFixed(3))
-        w.style.zIndex = String(z >= 0 ? frontZ : backZ)
+        const zIndex = String(z >= 0 ? frontZ : backZ)
+        if (lastZ[i] !== zIndex) {
+          lastZ[i] = zIndex
+          w.style.zIndex = zIndex
+        }
       })
     }
 

@@ -7,11 +7,10 @@ export function Chip({ t, glow = true }: { t: TechIcon; glow?: boolean }) {
     <div
       className="grid h-full w-full place-items-center rounded-full border"
       style={{
-        background: 'color-mix(in srgb, var(--bg-elevated) 86%, transparent)',
+        background: 'color-mix(in srgb, var(--bg-elevated) 92%, transparent)',
         borderColor: `color-mix(in srgb, ${t.color} 50%, var(--border))`,
         color: t.color,
         boxShadow: glow ? `0 0 12px -2px ${t.color}88` : undefined,
-        backdropFilter: 'blur(2px)',
       }}
       title={t.name}
     >
@@ -31,6 +30,7 @@ export function Sparkle() {
 export function Earth() {
   return (
     <div className="earth">
+      <div className="earth-map" />
       <div className="earth-clouds" />
     </div>
   )

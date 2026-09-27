@@ -43,7 +43,7 @@ export function CosmicCanvas() {
     let time = 0
 
     const init = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
       w = window.innerWidth
       h = window.innerHeight
       canvas.width = Math.round(w * dpr)
@@ -172,10 +172,14 @@ export function CosmicCanvas() {
       }
     }
 
+    let pending = 0
     const loop = (now: number) => {
-      const dt = Math.min((now - last) / 1000, 0.08)
+      pending += Math.min((now - last) / 1000, 0.08)
       last = now
-      draw(dt)
+      if (pending >= 1 / 32) {
+        draw(pending)
+        pending = 0
+      }
       raf = requestAnimationFrame(loop)
     }
     const start = () => {

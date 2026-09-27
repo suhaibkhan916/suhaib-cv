@@ -38,7 +38,8 @@ const bodies: BodyDef[] = layout.map(([key, orbit, phase]) => ({
 function StarMap() {
   const ticks = Array.from({ length: 72 }, (_, i) => i)
   return (
-    <svg viewBox="-100 -100 200 200" className="absolute inset-0 h-full w-full" style={{ animation: 'starmap-spin 420s linear infinite' }}>
+    <div className="absolute inset-0" style={{ animation: 'starmap-spin 420s linear infinite', willChange: 'transform' }}>
+    <svg viewBox="-100 -100 200 200" className="h-full w-full">
       {[98, 84, 68, 50, 32].map((r, i) => (
         <circle
           key={r}
@@ -79,6 +80,7 @@ function StarMap() {
         </text>
       ))}
     </svg>
+    </div>
   )
 }
 
