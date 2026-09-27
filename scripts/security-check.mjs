@@ -27,8 +27,7 @@ else {
   const inlineScripts = [...html.matchAll(/<script(?![^>]*type="application\/ld\+json")(?![^>]*\ssrc=)[^>]*>/g)]
   if (inlineScripts.length) fail('Inline executable <script> found in index.html (breaks strict CSP).')
 
-  const embeds = html.match(/<(?:script|link|img|iframe|source|video|audio)[^>]*>/g) ?? []
-  const external = embeds.flatMap((tag) => [...tag.matchAll(/\s(?:src|href)="(https?:\/\/[^"]+)"/g)].map((m) => m[1]))
+  const external = [...html.matchAll(/\s(?:src|href)="(https?:\/\/[^"]+)"/g)].map((m) => m[1])
   const allowedHosts = ['muhammadsuhaib.com']
   for (const url of external) {
     const host = new URL(url).hostname
