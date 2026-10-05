@@ -1,3 +1,5 @@
+import { contact } from './contact'
+
 export const profile = {
   name: 'Muhammad Suhaib',
   initials: 'MS',
@@ -6,8 +8,8 @@ export const profile = {
     'Five years across software engineering, IT support and data reporting. I build Python and Django services, Azure and GCP data pipelines and automation, backed by an MSc in Cyber Security, CompTIA Security+ and TryHackMe SAL1.',
   location: 'Bristol, United Kingdom',
   relocation: 'Open to UK & EU relocation',
-  phone: '+44 7466 648517',
-  email: 'suhaibkhan916@gmail.com',
+  phone: contact.phone,
+  email: contact.email,
   linkedin: 'linkedin.com/in/muhsuhaib',
   linkedinUrl: 'https://linkedin.com/in/muhsuhaib',
   github: 'github.com/suhaibkhan916',

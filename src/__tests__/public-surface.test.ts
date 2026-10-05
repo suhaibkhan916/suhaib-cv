@@ -24,8 +24,8 @@ const shipped = [
 
 const rel = (f: string) => relative(root, f).replace(/\\/g, '/')
 
-// Files where AI tools appear only because they are skills listed on the CV.
-const skillFiles = new Set(['src/data/resume.ts', 'src/data/techIcons.ts', 'src/components/TechMarquee.tsx', 'src/components/SkillOrbit.tsx'])
+// Files where AI tool names appear on purpose: skills listed on the CV, and the lists of crawlers that are blocked.
+const skillFiles = new Set(['public/robots.txt', 'scripts/security-check.mjs', 'src/data/resume.ts', 'src/data/techIcons.ts', 'src/components/TechMarquee.tsx', 'src/components/SkillOrbit.tsx'])
 
 describe('public surface reads as hand-written', () => {
   it('has no generated-by markers, AI boilerplate or placeholder text', () => {

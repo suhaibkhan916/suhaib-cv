@@ -112,7 +112,7 @@ describe('security.txt', () => {
   const txt = read('public/.well-known/security.txt')
 
   it('has contact, expiry and canonical fields', () => {
-    expect(txt).toMatch(/^Contact: mailto:/m)
+    expect(txt).toMatch(/^Contact: https:\/\//m)
     expect(txt).toMatch(/^Canonical: https:\/\/muhammadsuhaib\.com\/\.well-known\/security\.txt/m)
   })
 

@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
 import { afterEach, vi } from 'vitest'
+import { resetHumanPresence } from '../hooks/useHuman'
 
 if (typeof window !== 'undefined') {
   window.matchMedia = vi.fn().mockImplementation((query: string) => ({
@@ -45,5 +46,6 @@ if (typeof window !== 'undefined') {
     cleanup()
     window.localStorage.clear()
     document.documentElement.removeAttribute('data-theme')
+    resetHumanPresence()
   })
 }

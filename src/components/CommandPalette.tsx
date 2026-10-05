@@ -65,7 +65,7 @@ export function CommandPalette() {
       })),
       {
         id: 'copy',
-        label: `Copy email (${profile.email})`,
+        label: 'Copy email address',
         hint: 'Action',
         icon: FiCopy,
         run: () => void navigator.clipboard?.writeText(profile.email),

@@ -2,13 +2,16 @@ import { motion } from 'motion/react'
 import { useState } from 'react'
 import { FiCheck, FiCopy, FiGithub, FiLinkedin, FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
 import { profile } from '../data/resume'
+import { useContact } from '../hooks/useContact'
 import { Magnetic } from './Magnetic'
 
 export function Contact() {
   const [copied, setCopied] = useState(false)
+  const contact = useContact()
 
   const copyEmail = async () => {
     try {
+      if (!contact.human) return
       await navigator.clipboard.writeText(profile.email)
       setCopied(true)
       setTimeout(() => setCopied(false), 1800)
@@ -52,7 +55,7 @@ export function Contact() {
                   style={{ background: 'var(--accent)', color: 'var(--bg)' }}
                 >
                   {copied ? <FiCheck size={15} /> : <FiMail size={15} />}
-                  {copied ? 'Copied' : profile.email}
+                  {copied ? 'Copied' : contact.email}
                   {!copied && <FiCopy size={13} className="opacity-60" />}
                 </button>
               </span>
@@ -60,11 +63,11 @@ export function Contact() {
             <Magnetic>
               <span className="hvr-float inline-block">
                 <a
-                  href={`tel:${profile.phone.replace(/\s+/g, '')}`}
+                  href={contact.tel}
                   className="flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
                   style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
                 >
-                  <FiPhone size={15} /> {profile.phone}
+                  <FiPhone size={15} /> {contact.phone}
                 </a>
               </span>
             </Magnetic>

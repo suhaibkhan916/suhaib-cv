@@ -50,6 +50,22 @@ else {
     for (const [re, label] of secretPatterns) if (re.test(content)) fail(`Possible ${label} in ${f.replace(root, '')}`)
   }
 
+  const harvestable = [
+    [/[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,}/, 'email address'],
+    [/\+44[\s-]?7\d{3}[\s-]?\d{6}/, 'UK mobile number'],
+    [/\b07\d{3}[\s-]?\d{6}\b/, 'UK mobile number'],
+  ]
+  for (const f of files.filter((f) => textExt.has(extname(f)))) {
+    const content = readFileSync(f, 'utf8')
+    for (const [re, label] of harvestable) if (re.test(content)) fail(`Plain ${label} found in ${f.replace(root, '')} (bots could harvest it).`)
+  }
+
+  const robots = readFileSync(join(dist, 'robots.txt'), 'utf8')
+  for (const bot of ['GPTBot', 'ClaudeBot', 'CCBot', 'PerplexityBot', 'Google-Extended', 'Bytespider']) {
+    if (!new RegExp(`User-agent: ${bot}\\s+Disallow: /`, 'i').test(robots)) fail(`robots.txt does not disallow ${bot}.`)
+  }
+  if (!/<meta name="robots" content="[^"]*noai/.test(html)) fail('Page is missing the noai robots meta tag.')
+
   const js = files.filter((f) => f.endsWith('.js')).map((f) => readFileSync(f, 'utf8')).join('\n')
   if (/document\.write\(/.test(js)) fail('document.write used in shipped JavaScript.')
 }

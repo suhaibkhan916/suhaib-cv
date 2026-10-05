@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { FiArrowDown, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { profile } from '../data/resume'
+import { useContact } from '../hooks/useContact'
 import { Magnetic } from './Magnetic'
 import { OrbitSystem } from './OrbitSystem'
 import { TypeRotator } from './TypeRotator'
@@ -111,6 +112,7 @@ function Avatar() {
 }
 
 export function Hero() {
+  const contact = useContact()
   return (
     <section id="top" className="relative flex min-h-[92svh] flex-col justify-center px-6 pt-16 pb-10">
       <div className="mx-auto w-full max-w-5xl">
@@ -191,7 +193,7 @@ export function Hero() {
               <Magnetic>
                 <span className="hvr-grow inline-block">
                   <a
-                    href={`mailto:${profile.email}`}
+                    href={contact.mailto}
                     className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
                     style={{ background: 'var(--accent)', color: 'var(--bg)' }}
                   >

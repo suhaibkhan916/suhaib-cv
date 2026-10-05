@@ -155,6 +155,7 @@ describe('contact', () => {
   it('copies the email address to the clipboard', async () => {
     const user = userEvent.setup()
     render(<App />)
+    await user.keyboard('a')
     await user.click(screen.getByRole('button', { name: new RegExp(profile.email.replace('.', '\\.')) }))
     expect(await navigator.clipboard.readText()).toBe(profile.email)
     expect(await screen.findByText('Copied')).toBeInTheDocument()
@@ -172,8 +173,10 @@ describe('contact', () => {
     expect(links.some((a) => a.href.startsWith(profile.linkedinUrl))).toBe(true)
   })
 
-  it('offers a working mailto link', () => {
+  it('offers a working mailto link once a person is present', async () => {
+    const user = userEvent.setup()
     render(<App />)
+    await user.keyboard('a')
     const mail = document.querySelector<HTMLAnchorElement>(`a[href="mailto:${profile.email}"]`)
     expect(mail).toBeInTheDocument()
   })
